@@ -15,6 +15,7 @@ class Data():
         )
         self._classes_range = self.classes(self._raw_data, self._classes_amp)
         self._freq_dist = self.frequency_distribution()
+        self._tab_data = self._freq_dist.get_tab()
 
     def cls_num(self, n: int) -> int:
         num = 1 + (3.3 * log10(n))
@@ -37,16 +38,18 @@ class Data():
     def frequency_distribution(self) -> Freq:
         distribution = Freq(
             self._raw_data,
-            self._classes_range,  # type: ignore
-            self._classes_amp  # type: ignore
+            self._classes_range,
+            self._classes_amp
         )
         return distribution
 
     @property
     def freq_dist(self) -> Freq:
         return self._freq_dist
-# 45, 41, 42, 41, 42, 43, 44, 41, 50, 46, 50, 46,
-# 60, 54, 52, 58, 57, 58, 60, 51
+
+    @property
+    def tabulated_data(self) -> list[str]:
+        return self._tab_data
 
 
 if __name__ == '__main__':

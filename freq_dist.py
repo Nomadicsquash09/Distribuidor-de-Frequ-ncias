@@ -1,5 +1,8 @@
 class Freq():
-    def __init__(self, _list: list[float], _classes: list[float], _amp: float):
+    def __init__(self,
+                 _list: list[float],
+                 _classes: list[float],
+                 _amp: float) -> None:
         self._data = _list
         self._classes_amp = _amp
         self._classes_range = _classes
@@ -9,6 +12,7 @@ class Freq():
         self._fi = self.fi()
         self._xi = self.xi()
         self._pi = self.pi()
+        self._table_data = []
 
     def classes(self) -> list[tuple]:
         cls_list = []
@@ -65,13 +69,40 @@ class Freq():
             )
         return xi_list
 
-    def pi(self):
+    def pi(self) -> list[str]:
         pi_list = []
         for item in self._fri:
             pi_list.append(
                 round(item * 100, 4)
             )
         return pi_list
+
+    def get_tab(self) -> list[str]:
+        for i in range(len(self._classes)):
+            self._table_data.append(
+                (
+                    i + 1,
+                    self._classes[i],
+                    self._count_list[i],
+                    self._fri[i],
+                    self._fi[i],
+                    self._xi[i],
+                    self._pi[i]
+                )
+            )
+        return self._table_data
+
+    @property
+    def classes_amp(self):
+        return self._classes_amp
+
+    @property
+    def classes_range(self):
+        return self._classes_range
+
+    @property
+    def get_fi(self):
+        return self._fi
 
     def __repr__(self) -> str:
         repr_string = ""
